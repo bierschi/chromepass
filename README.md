@@ -55,3 +55,4 @@ All changes and versioning information can be found in the [CHANGELOG](https://g
 ## License
 Copyright (c) 2020 Bierschneider Christian. See [LICENSE](https://github.com/bierschi/chromepass/blob/master/LICENSE)
 for details
+

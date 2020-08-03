@@ -6,13 +6,18 @@ from Cryptodome.Cipher import AES
 try:
     import win32crypt
 except ImportError as ex:
-    print(ex)
+    pass
 
 from chromepass import Chrome
 
 
 class ChromeWindows(Chrome):
+    """ class ChromeWindows to get the passwords from the Windows Chrome browser
 
+        Usage:
+            chrome_win = ChromeWindows()
+            chrome_win.decrypt_password(encrypted_password=encrypted_password)
+    """
     def __init__(self):
 
         # init base class
@@ -72,7 +77,7 @@ class ChromeWindows(Chrome):
         return win32crypt.CryptUnprotectData(encrypted_password, None, None, None, 0)[1]
 
     def decrypt_password(self, encrypted_password):
-        """ decrypts the password
+        """ decrypt the given encrypted password
 
         :param encrypted_password: encrypted  password
 
@@ -85,7 +90,6 @@ class ChromeWindows(Chrome):
 
             return decrypted_password
         except Exception as ex:
-            print(ex)
             iv = encrypted_password[3:15]
             payload = encrypted_password[15:]
             cipher = self.__generate_cipher(self.master_key, iv)

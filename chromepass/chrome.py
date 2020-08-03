@@ -8,9 +8,10 @@ class Chrome(ABC):
 
     @abstractmethod
     def decrypt_password(self, encrypted_password):
-        """
+        """ decrypt the given encrypted password
 
-        :param encrypted_password:
-        :return:
+        :param encrypted_password: encrypted password
+
+        :return: decrypted password
         """
         pass

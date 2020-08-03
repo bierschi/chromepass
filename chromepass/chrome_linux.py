@@ -25,6 +25,8 @@ class ChromeLinux(Chrome):
         self.tmp_login_db_path = f"/home/{getuser()}/.config/google-chrome/Default/Login_tmp"
         shutil.copy2(self.login_db_path, self.tmp_login_db_path)  # making a temp copy since login data db is locked while chrome is running
 
+        self.iv = b' ' * 16
+
         bus = secretstorage.dbus_init()
         collection = secretstorage.get_default_collection(bus)
         for item in collection.get_all_items():
@@ -33,7 +35,6 @@ class ChromeLinux(Chrome):
                 break
 
         self.key = PBKDF2(password=password, salt=b'saltysalt', dkLen=16, count=1)
-        self.iv = b' ' * 16
         self.cipher = AES.new(self.key, AES.MODE_CBC, IV=self.iv)
 
     def __del__(self):

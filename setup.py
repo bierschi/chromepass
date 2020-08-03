@@ -11,7 +11,7 @@ with open("README.md", encoding='utf-8') as f:
 setup(
     name=__title__,
     version=__version__,
-    description="Fetching saved passwords from chrome browser database",
+    description="Fetching saved passwords from chrome database file",
     long_description=readme,
     long_description_content_type='text/markdown',
     license=__license__,
@@ -20,7 +20,7 @@ setup(
     url="https://github.com/bierschi/chromepass",
     packages=find_packages(),
     install_requires=required,
-    keywords=["chrome", "passwords", "database", "browser"],
+    keywords=["chrome", "passwords", "database", "browser", "windows", "linux"],
     python_requires=">=3",
     classifiers=[
         "Development Status :: 4 - Beta",

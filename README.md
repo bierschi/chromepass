@@ -38,14 +38,15 @@ chromepass --file /home/christian/chromepass.txt
 
 ## Executables
 
-install pyinstaller
+Install pyinstaller with
 
 <pre><code>
 pip3 install pyinstaller
 </code></pre>
 
+create exe file
 <pre><code>
-pyinstaller --onefile --name chromepass main.py
+pyinstaller --onefile --name chromepass chromepass/main.py
 </code></pre>
 
 ## Changelog

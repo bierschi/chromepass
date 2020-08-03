@@ -2,6 +2,9 @@
 - Fetching saved passwords from chrome database file
 - Supports Windows and Linux Platform
 
+![Alt Text](chromepass.gif)
+
+<img src="chromepass.gif" width="500" height="150"/>
 
 ## Installation
 

@@ -6,7 +6,10 @@ __email__ = "christian.bierschneider@web.de"
 __license__ = "MIT"
 
 import os
-from chromepass.cipher import Cipher
+from chromepass.chrome import Chrome
+from chromepass.chrome_linux import ChromeLinux
+from chromepass.chrome_windows import ChromeWindows
 from chromepass.chrome_passwords import Chromepass
+
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))

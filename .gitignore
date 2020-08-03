@@ -105,3 +105,4 @@ venv.bak/
 
 #project
 .idea/
+chromepass/linux_tmp.py

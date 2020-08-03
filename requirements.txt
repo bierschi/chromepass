@@ -1,2 +1,2 @@
-win32crypt
+win32crypt; sys_platform == "win32"
 pycryptodomex

@@ -1,6 +1,7 @@
 import os
 import json
 import base64
+import platform
 from Cryptodome.Cipher import AES
 try:
     import win32crypt
@@ -17,7 +18,11 @@ class Cipher:
     """
     def __init__(self):
 
-        self.local_state_path = os.environ['USERPROFILE'] + os.sep + r'AppData\Local\Google\Chrome\User Data\Local State'
+        if platform.system() == 'Windows':
+            self.local_state_path = os.environ['USERPROFILE'] + os.sep + r'AppData\Local\Google\Chrome\User Data\Local State'
+
+        elif platform.system() == 'Linux':
+            pass
 
     def get_master_key(self):
         """ get the master key from the Local State file

@@ -9,7 +9,7 @@
 
 ## Installation
 
-install [chromepass]() with pip
+install [chromepass](https://pypi.org/project/chromepass/) with pip
 <pre><code>
 pip3 install chromepass
 </code></pre>

@@ -25,7 +25,12 @@ class ChromeWindows(Chrome):
 
         self.login_db_path = os.environ['USERPROFILE'] + os.sep + r'AppData\Local\Google\Chrome\User Data\default\Login Data'
         self.tmp_login_db_path = os.environ['USERPROFILE'] + os.sep + r'AppData\Local\Google\Chrome\User Data\default\Login_tmp'
-        shutil.copy2(self.login_db_path, self.tmp_login_db_path)  # making a temp copy since login data db is locked while chrome is running
+
+        if os.path.exists(self.login_db_path):
+            shutil.copy2(self.login_db_path, self.tmp_login_db_path)  # making a temp copy since login data db is locked while chrome is running
+        else:
+            print("It seems that no chrome browser is installed! Exiting...")
+            exit(1)
 
         self.local_state_path = os.environ['USERPROFILE'] + os.sep + r'AppData\Local\Google\Chrome\User Data\Local State'
 
@@ -33,7 +38,10 @@ class ChromeWindows(Chrome):
 
     def __del__(self):
         """destructor"""
-        os.remove(self.tmp_login_db_path)
+        try:
+            os.remove(self.tmp_login_db_path)
+        except FileNotFoundError as ex:
+            pass
 
     def __get_master_key(self):
         """ get the master key from the Local State file

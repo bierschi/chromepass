@@ -1,5 +1,6 @@
 # chromepass
--
+- Fetching saved passwords from chrome database file
+- Supports Windows and Linux Platform
 
 
 ## Installation
@@ -18,21 +19,30 @@ sudo python3 setup.py install
 
 
 ## Usage and Examples
-
-
-
-## Logs
-
-logs can be found in `/var/log/chromepass`
-
-## Troubleshooting
-- add your current user to group `syslog`, this allows the application to create a folder in
-`/var/log`. Replace `<user>` with your current user
+Print the available arguments
 <pre><code>
-sudo adduser &lt;user&gt; syslog
+chromepass --help
 </code></pre>
-to apply this change, log out and log in again and check with the command `groups` <br>
+use it without any arguments
+<pre><code>
+chromepass
+</code></pre>
+or save the results to a file
+<pre><code>
+chromepass --file /home/christian/chromepass.txt
+</code></pre>
 
+## Executables
+
+install pyinstaller
+
+<pre><code>
+pip3 install pyinstaller
+</code></pre>
+
+<pre><code>
+pyinstaller --onefile --name chromepass main.py
+</code></pre>
 
 ## Changelog
 All changes and versioning information can be found in the [CHANGELOG](https://github.com/bierschi/chromepass/blob/master/CHANGELOG.rst)

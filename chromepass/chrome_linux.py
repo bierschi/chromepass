@@ -26,16 +26,21 @@ class ChromeLinux(Chrome):
         shutil.copy2(self.login_db_path, self.tmp_login_db_path)  # making a temp copy since login data db is locked while chrome is running
 
         self.iv = b' ' * 16
+        self.password = None
 
         bus = secretstorage.dbus_init()
         collection = secretstorage.get_default_collection(bus)
         for item in collection.get_all_items():
             if item.get_label() == 'Chrome Safe Storage':
-                password = item.get_secret()
+                self.password = item.get_secret()
                 break
 
-        self.key = PBKDF2(password=password, salt=b'saltysalt', dkLen=16, count=1)
-        self.cipher = AES.new(self.key, AES.MODE_CBC, IV=self.iv)
+        if self.password is not None:
+            self.key = PBKDF2(password=self.password, salt=b'saltysalt', dkLen=16, count=1)
+            self.cipher = AES.new(self.key, AES.MODE_CBC, IV=self.iv)
+        else:
+            print("No passwords in Chrome Safe Storage")
+            exit(1)
 
     def __del__(self):
         """destructor"""

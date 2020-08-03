@@ -2,7 +2,9 @@ from abc import ABC, abstractmethod
 
 
 class Chrome(ABC):
+    """ Abstract Base Class Chrome
 
+    """
     def __init__(self):
         pass
 

@@ -42,6 +42,7 @@ class ChromeLinux(Chrome):
 
         self.key = PBKDF2(password=self.password, salt=b'saltysalt', dkLen=16, count=1)
         self.cipher = AES.new(self.key, AES.MODE_CBC, IV=self.iv)
+        self.bytechars = [b'\x01', b'\x02', b'\x03', b'\x04', b'\x05', b'\x06', b'\x07', b'\x08', b'\x09']
 
     def __del__(self):
         """destructor"""
@@ -50,16 +51,33 @@ class ChromeLinux(Chrome):
         except FileNotFoundError as ex:
             pass
 
+    def replace_chars(self, decrypted):
+        """ replaces specific bytestring characters from decrypted bytestring
+
+        :param decrypted: bytestring
+
+        :return: bytestring without special chars
+        """
+        for c in self.bytechars:
+            decrypted = decrypted.replace(c, b'')
+        return decrypted
+
     def decrypt_password(self, encrypted_password):
         """ decrypt the given encrypted password
 
-        :param encrypted_password: encrypted passord
+        :param encrypted_password: encrypted password
 
         :return decrypted password
         """
 
         enc_passwd = encrypted_password[3:]
         decrypted = self.cipher.decrypt(enc_passwd)
-        password = decrypted.strip().decode('utf8')
 
-        return ''.join(i for i in password if i in string.printable)
+        try:
+            decrypted = self.replace_chars(decrypted=decrypted)
+            password = decrypted.decode(encoding='utf-8', errors='surrogateescape')
+        except UnicodeDecodeError as ex:
+            print("Could not decode the password in 'utf-8' encoding. Ignoring errors...")
+            password = decrypted.strip().decode(encoding='utf-8', errors='ignore')
+
+        return password

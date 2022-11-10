@@ -1,4 +1,5 @@
 # chromepass
+[![Build Status](https://jenkins.bierschi.com/buildStatus/icon?job=chromepass)](https://jenkins.bierschi.com/job/chromepass/)
 - Fetching saved passwords from chrome database file
 - Supports Windows and Linux Platform
 

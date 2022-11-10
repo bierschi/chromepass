@@ -1,7 +1,8 @@
 import os
 import shutil
-import string
+import subprocess
 import secretstorage
+from time import sleep
 from getpass import getuser
 from Cryptodome.Cipher import AES
 from Cryptodome.Protocol.KDF import PBKDF2
@@ -37,7 +38,12 @@ class ChromeLinux(Chrome):
         collection = secretstorage.get_default_collection(bus)
         for item in collection.get_all_items():
             if item.get_label() == 'Chrome Safe Storage':
-                self.password = item.get_secret()
+                try:
+                    self.password = item.get_secret()
+                except secretstorage.exceptions.LockedException as ex:
+                    print("Chrome database file is locked. Opening browser as background process. Terminating after 1 sec ...")
+                    self.open_chrome()
+                    self.password = item.get_secret()
                 break
 
         self.key = PBKDF2(password=self.password, salt=b'saltysalt', dkLen=16, count=1)
@@ -50,6 +56,14 @@ class ChromeLinux(Chrome):
             os.remove(self.tmp_login_db_path)
         except FileNotFoundError as ex:
             pass
+
+    def open_chrome(self):
+        """ opens chrome as a background process and terminates it after one second
+
+        """
+        proc = subprocess.Popen(["/usr/bin/google-chrome"])
+        sleep(1)
+        proc.terminate()
 
     def replace_chars(self, decrypted):
         """ replaces specific bytestring characters from decrypted bytestring

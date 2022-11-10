@@ -27,11 +27,14 @@ pipeline {
 
                         echo 'Build Wheel Distribution'
                         sh 'python3 setup.py bdist_wheel'
+
+                        echo 'Build chromepass binary'
+                        sh 'pyinstaller --onefile --name chromepass chromepass/main.py'
                     }
                     post {
                         always {
                               archiveArtifacts (allowEmptyArchive: true,
-                              artifacts: 'dist/*whl, dist/*.tar.gz', fingerprint: true)
+                              artifacts: 'dist/*whl, dist/*.tar.gz, chromepass', fingerprint: true)
                         }
                     }
                  }

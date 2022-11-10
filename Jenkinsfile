@@ -1,19 +1,17 @@
 pipeline {
          agent any
          stages {
-                 stage('Build Package') {
+                 stage('Install Dependencies from Package chromepass') {
                      steps {
-                         echo 'Build package chromepass'
+                         echo 'Install Dependencies from Package chromepass'
                          sh 'pip3 install -r requirements.txt'
                      }
                  }
                  stage('Static Code Metrics') {
 
                     steps {
-                        echo 'Test Coverage'
-
                         echo 'Style checks with pylint'
-                        sh 'pylint3 --reports=y chromepass/ || exit 0'
+                        sh 'pylint --reports=y chromepass/ || exit 0'
                     }
 
                  }
@@ -34,19 +32,10 @@ pipeline {
                         always {
                               archiveArtifacts (allowEmptyArchive: true,
                               artifacts: 'dist/*whl', fingerprint: true)
-                        }
-                        success {
-                            echo 'Install package chromepass on test server'
-                            sh 'sudo python3 setup.py install'
+                              artifacts: 'dist/*.tar.gz', fingerprint: true)
                         }
                     }
                  }
-                 stage('Deploy/Install To Target Server') {
-                    steps {
-                        echo 'Deploy chromepass to target server'
-                        sshPublisher(publishers: [sshPublisherDesc(configName: 'christian@vm1-bierschi', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'sudo pip3 install projects/chromepass/$BUILD_NUMBER/chromepass-*.whl', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'chromepass/$BUILD_NUMBER', remoteDirectorySDF: false, removePrefix: 'dist', sourceFiles: 'dist/*.whl')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-                    }
-                }
                 stage('Deploy to PyPI') {
                     when {
                         expression { "${env.GIT_BRANCH}" =~ "origin/release/" }

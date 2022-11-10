@@ -1,7 +1,7 @@
 pipeline {
          agent any
          stages {
-                 stage('Install Dependencies from Package chromepass') {
+                 stage('Install Dependencies from Package chromepass ') {
                      steps {
                          echo 'Install Dependencies from Package chromepass'
                          sh 'pip3 install -r requirements.txt'

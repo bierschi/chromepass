@@ -34,7 +34,7 @@ pipeline {
                     post {
                         always {
                               archiveArtifacts (allowEmptyArchive: true,
-                              artifacts: 'dist/*whl, dist/*.tar.gz, chromepass', fingerprint: true)
+                              artifacts: 'dist/*whl, dist/*.tar.gz, dist/chromepass', fingerprint: true)
                         }
                     }
                  }

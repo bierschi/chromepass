@@ -1,7 +1,7 @@
 pipeline {
          agent any
          stages {
-                 stage('Install Dependencies from Package chromepass ') {
+                 stage('Install Dependencies from Package chromepass') {
                      steps {
                          echo 'Install Dependencies from Package chromepass'
                          sh 'pip3 install -r requirements.txt'
@@ -31,8 +31,7 @@ pipeline {
                     post {
                         always {
                               archiveArtifacts (allowEmptyArchive: true,
-                              artifacts: 'dist/*whl', fingerprint: true)
-                              artifacts: 'dist/*.tar.gz', fingerprint: true)
+                              artifacts: 'dist/*whl, dist/*.tar.gz', fingerprint: true)
                         }
                     }
                  }

@@ -47,7 +47,6 @@ class ChromeLinux(Chrome):
                 break
 
         self.key = PBKDF2(password=self.password, salt=b'saltysalt', dkLen=16, count=1)
-        self.cipher = AES.new(self.key, AES.MODE_CBC, IV=self.iv)
         self.bytechars = [b'\x01', b'\x02', b'\x03', b'\x04', b'\x05', b'\x06', b'\x07', b'\x08', b'\x09']
 
     def __del__(self):
@@ -85,7 +84,8 @@ class ChromeLinux(Chrome):
         """
 
         enc_passwd = encrypted_password[3:]
-        decrypted = self.cipher.decrypt(enc_passwd)
+        cipher = AES.new(self.key, AES.MODE_CBC, IV=self.iv)
+        decrypted = cipher.decrypt(enc_passwd)
 
         try:
             decrypted = self.replace_chars(decrypted=decrypted)

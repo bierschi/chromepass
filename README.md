@@ -1,9 +1,9 @@
 # chromepass
 [![Build Status](https://jenkins.bierschi.com/buildStatus/icon?job=chromepass)](https://jenkins.bierschi.com/job/chromepass/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/bierschi/chromepass/blob/master/LICENSE)
-[![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
+<!--[![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
 [![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)
-<!--[![macOS](https://svgshare.com/i/ZjP.svg)](https://svgshare.com/i/ZjP.svg)-->
+[![macOS](https://svgshare.com/i/ZjP.svg)](https://svgshare.com/i/ZjP.svg)-->
 - Fetching saved passwords from chrome database file
 - Supports Windows and Linux Platform
 
